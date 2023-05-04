@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/navigation_item1"
+        android:title="Főoldal"
+         />
+    <item
+        android:id="@+id/navigation_item2"
+        android:title="Meccs hozzáadása"
+         />
+    <item
+        android:id="@+id/navigation_item3"
+        android:title="Profil"
+         />
+
+</menu>

@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "216585991506",
+    "project_id": "labdarugas-37e13",
+    "storage_bucket": "labdarugas-37e13.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:216585991506:android:28266d97c519863bfab68b",
+        "android_client_info": {
+          "package_name": "hu.mobilalkkotprog"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "216585991506-2p7he0cl9a1urhke0uk48udlaoif97e6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "hu.mobilalkkotprog",
+            "certificate_hash": "ba81ca4d6b42e1195b8f2f5d5385c2790bf54b37"
+          }
+        },
+        {
+          "client_id": "216585991506-rvqukpcc8k9kpv34lqjbgic2dakgrnnq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCgCkjwKQR_hrd3WW1YRgJXuYUFVbseaU0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "216585991506-rvqukpcc8k9kpv34lqjbgic2dakgrnnq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
