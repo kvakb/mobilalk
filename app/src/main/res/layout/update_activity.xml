@@ -1,0 +1,65 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Meccs szerkesztése"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:layout_marginBottom="16dp"
+        android:id="@+id/textTitle" />
+
+    <EditText
+        android:id="@+id/editHomeTeam"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Hazai csapat"
+        android:layout_below="@id/textTitle" />
+
+    <EditText
+        android:id="@+id/editAwayTeam"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Vendég csapat"
+        android:layout_below="@id/editHomeTeam" />
+
+    <EditText
+        android:id="@+id/editHomeScore"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Hazai eredmény"
+        android:layout_below="@id/editAwayTeam" />
+
+    <EditText
+        android:id="@+id/editAwayScore"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Vendég eredmény"
+        android:layout_below="@id/editHomeScore" />
+
+    <Button
+        android:id="@+id/btnSave"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Mentés"
+        android:layout_below="@id/editAwayScore"
+        android:layout_marginTop="16dp" />
+    </LinearLayout>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigationView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        app:menu="@menu/bottom_navigation_menu" />
+
+</RelativeLayout>

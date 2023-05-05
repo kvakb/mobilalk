@@ -1,5 +1,6 @@
 package hu.mobilalkkotprog;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -39,6 +40,7 @@ public class DatabaseTask extends AsyncTask<Void, Void, Void> {
                 .addOnSuccessListener(documentReference -> {
                     // Sikeres beszúrás esetén
                     Log.d("DatabaseTask", "Mérkőzés sikeresen hozzáadva");
+
                 })
                 .addOnFailureListener(e -> {
                     // Hiba esetén

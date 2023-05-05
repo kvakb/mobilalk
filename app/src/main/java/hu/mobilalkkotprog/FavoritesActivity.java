@@ -25,6 +25,8 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.EventListener;
+import java.util.HashSet;
+import java.util.Set;
 
 import hu.mobilalkkotprog.Meccs;
 import hu.mobilalkkotprog.MeccsAdapter;
@@ -33,7 +35,7 @@ import hu.mobilalkkotprog.R;
 public class FavoritesActivity extends AppCompatActivity {
 
     RecyclerView recyclerView;
-    ArrayList<Meccs> meccsArrayList;
+    ArrayList meccsArrayList;
     MeccsAdapter meccsAdapter;
     FirebaseFirestore db;
     FirebaseAuth mAuth;
@@ -75,7 +77,7 @@ public class FavoritesActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         currentUserId = mAuth.getCurrentUser().getUid();
 
-        meccsArrayList = new ArrayList<>();
+        meccsArrayList = new ArrayList();
         meccsAdapter = new MeccsAdapter(FavoritesActivity.this, meccsArrayList);
         recyclerView.setAdapter(meccsAdapter);
 
@@ -115,7 +117,9 @@ public class FavoritesActivity extends AppCompatActivity {
                     if (document.exists()) {
                         Meccs meccs = document.toObject(Meccs.class);
                         meccs.setDocumentId(document.getId());
-                        meccsArrayList.add(meccs);
+                        if (!meccsArrayList.contains(meccs)) {
+                            meccsArrayList.add(meccs);
+                        }
                         meccsAdapter.notifyDataSetChanged();
                     }
                 } else {
@@ -123,10 +127,5 @@ public class FavoritesActivity extends AppCompatActivity {
                 }
             }
         });
-    }
-
-    public void onDeleteClick(View view) {
-        // Implementáld a kedvenc meccs törlésének funkcionalitását itt
-        // ...
     }
 }

@@ -75,6 +75,9 @@ public class AddMatchActivity extends AppCompatActivity {
                 // Háttérszál indítása az adatbázisművelettel
                 DatabaseTask task = new DatabaseTask(homeTeam, awayTeam, homeGoals, awayGoals);
                 task.execute();
+                Intent intent = new Intent(AddMatchActivity.this, MainActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
 

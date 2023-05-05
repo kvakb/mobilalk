@@ -28,6 +28,8 @@ public class ProfilActivity extends AppCompatActivity {
 
     private Button buttonLogout;
 
+
+
     private Button buttonModify;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,6 +83,15 @@ public class ProfilActivity extends AppCompatActivity {
                 Log.d(TAG, "Felhasználó kijelentkezett");
                 // Visszatérés a bejelentkezési oldalra
                 startActivity(new Intent(ProfilActivity.this, SignInActivity.class));
+                finish(); // Bezárjuk a ProfilActivity-t
+            }
+        });
+
+        Button favoritesButton = findViewById(R.id.favoritesButton);
+        favoritesButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(ProfilActivity.this, FavoritesActivity.class));
                 finish(); // Bezárjuk a ProfilActivity-t
             }
         });

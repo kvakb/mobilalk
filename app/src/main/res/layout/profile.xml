@@ -4,44 +4,75 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <!-- Űrlap elemek -->
-    <EditText
-        android:id="@+id/editTextEmail"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Email"
-        android:layout_marginTop="16dp" />
+        android:orientation="vertical"
+        android:padding="16dp">
 
-    <EditText
-        android:id="@+id/editTextPassword"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Jelszó"
-        android:layout_below="@id/editTextEmail"
-        android:layout_marginTop="16dp" />
+        <TextView
+            android:id="@+id/textTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Profil szerkesztése"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:layout_marginBottom="16dp" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Az alábbi mezők kitöltésével módosíthatod a profilodat: \nCsak az email címedet tudod módosítani.\nA sikeres módosításhoz írd be a jelszódat a jelszó mezőbe!"
+            android:textSize="16sp"
+            android:layout_marginBottom="16dp" />
 
-    <Button
-        android:id="@+id/buttonModify"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Módosítás"
-        android:layout_below="@id/editTextPassword"
-        android:layout_marginTop="16dp" />
+
+        <EditText
+            android:id="@+id/editTextEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Email"
+            android:layout_marginTop="16dp" />
+
+        <EditText
+            android:id="@+id/editTextPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Jelszó"
+            android:inputType="textPassword"
+            android:layout_marginTop="16dp" />
+
+        <Button
+            android:id="@+id/buttonModify"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Módosítás"
+            android:layout_marginTop="16dp" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="85dp" />
+
+        <Button
+            android:id="@+id/favoritesButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Kedvenc meccsek"
+            android:layout_marginTop="16dp" />
+
+        <Button
+            android:id="@+id/buttonLogout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Kilépés"
+            android:layout_marginTop="16dp" />
+
+    </LinearLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginTop="16dp"
         app:menu="@menu/bottom_navigation_menu" />
-
-    <Button
-        android:id="@+id/buttonLogout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Kilépés"
-        android:layout_above="@id/bottomNavigationView"
-        android:layout_marginBottom="16dp" />
 
 </RelativeLayout>
