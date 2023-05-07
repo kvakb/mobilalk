@@ -34,7 +34,22 @@ public class SignInActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String email = mEmailEditText.getText().toString();
                 String password = mPasswordEditText.getText().toString();
+
+                if (email.isEmpty() || password.isEmpty()) {
+                    Toast.makeText(SignInActivity.this, "Kérlek, töltsd ki az összes mezőt", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
                 login(email, password);
+            }
+        });
+        Button signUpPage = findViewById(R.id.signUpPage);
+        signUpPage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SignInActivity.this, SignUpActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
     }
@@ -45,14 +60,11 @@ public class SignInActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            // Sikeres bejelentkezés
                             FirebaseUser user = mAuth.getCurrentUser();
-                            // Átirányítás a Home oldalra
                             Intent intent = new Intent(SignInActivity.this, MainActivity.class);
                             startActivity(intent);
                             finish();
                         } else {
-                            // Sikertelen bejelentkezés, hibaüzenet megjelenítése
                             Toast.makeText(SignInActivity.this, "Bejelentkezés sikertelen.",
                                     Toast.LENGTH_SHORT).show();
                         }

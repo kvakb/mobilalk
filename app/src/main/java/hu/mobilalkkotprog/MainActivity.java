@@ -121,33 +121,4 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    /*public void onDeleteClick(View view) {
-        // CardView objektum lekérése a kattintás helyéről
-        CardView cardView = (CardView) view.getParent().getParent();
-
-        // CardView azonosítójának lekérése
-        String documentId = cardView.getTag().toString();
-
-        // Firestore adatbázis referenciájának lekérése
-        CollectionReference matchesRef = db.collection("matches");
-
-        // Megfelelő dokumentum törlése az adatbázisból
-        matchesRef.document(documentId)
-                .delete()
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        Toast.makeText(MainActivity.this, "Meccs sikeresen törölve", Toast.LENGTH_SHORT).show();
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.e(TAG, "Hiba a meccs törlésekor", e);
-                        Toast.makeText(MainActivity.this, "Hiba történt a meccs törlésekor", Toast.LENGTH_SHORT).show();
-                    }
-                });
-    }*/
-
-
 }

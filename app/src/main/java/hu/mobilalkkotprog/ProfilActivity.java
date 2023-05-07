@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -67,7 +68,6 @@ public class ProfilActivity extends AppCompatActivity {
         FirebaseUser user = mAuth.getCurrentUser();
 
         if (user != null) {
-            // Felhasználó be van jelentkezve, kiírjuk az e-mail címet a LOG-ban
             String email = user.getEmail();
             Log.d(TAG, "Bejelentkezett felhasználó e-mail címe: " + email);
         }else {
@@ -78,12 +78,10 @@ public class ProfilActivity extends AppCompatActivity {
         buttonLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Felhasználó kijelentkeztetése
                 mAuth.signOut();
                 Log.d(TAG, "Felhasználó kijelentkezett");
-                // Visszatérés a bejelentkezési oldalra
                 startActivity(new Intent(ProfilActivity.this, SignInActivity.class));
-                finish(); // Bezárjuk a ProfilActivity-t
+                finish();
             }
         });
 
@@ -92,40 +90,40 @@ public class ProfilActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(ProfilActivity.this, FavoritesActivity.class));
-                finish(); // Bezárjuk a ProfilActivity-t
+                finish();
             }
         });
 
-        // Módosítás gomb eseménykezelője
         buttonModify.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Új e-mail és jelszó értékek lekérése az űrlapról
                 String newEmail = editTextEmail.getText().toString().trim();
                 String newPassword = editTextPassword.getText().toString().trim();
 
-                // Felhasználó objektum lekérése
+                if (newEmail.isEmpty() || newPassword.isEmpty()) {
+                    Toast.makeText(ProfilActivity.this, "Kérlek, töltsd ki az összes mezőt", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
                 FirebaseUser user = mAuth.getCurrentUser();
 
                 if (user != null) {
-                    // Új hitelesítési adatok létrehozása
                     AuthCredential credential = EmailAuthProvider.getCredential(user.getEmail(), newPassword);
 
-                    // Felhasználó reauthentikációja
                     user.reauthenticate(credential)
                             .addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if (task.isSuccessful()) {
-                                        // Sikeres reauthentikáció, folytatás az adatmódosítással
-                                        // E-mail cím módosítása
                                         user.updateEmail(newEmail)
                                                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                                                     @Override
                                                     public void onComplete(@NonNull Task<Void> task) {
                                                         if (task.isSuccessful()) {
                                                             Log.d(TAG, "E-mail cím sikeresen frissítve: " + newEmail);
+                                                            Toast.makeText(ProfilActivity.this, "Email cím sikeresen frissítve. Új email: " + newEmail, Toast.LENGTH_SHORT).show();
                                                         } else {
+                                                            Toast.makeText(ProfilActivity.this, "Email cím frissítése sikertelen emiatt: : "+ task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                                                             Log.d(TAG, "E-mail cím frissítése sikertelen: " + task.getException().getMessage());
                                                         }
                                                     }

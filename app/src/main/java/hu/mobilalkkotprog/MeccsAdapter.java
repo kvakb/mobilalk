@@ -150,18 +150,14 @@ public class MeccsAdapter extends RecyclerView.Adapter<MeccsAdapter.MyViewHolder
                 public void onClick(View v) {
                     int position = getAdapterPosition();
                     if (position != RecyclerView.NO_POSITION) {
-                        // Az editIconra kattintásra meghívódó kód
                         Meccs meccs = meccsArrayList.get(position);
                         Intent intent = new Intent(context, UpdateActivity.class);
-
-                        // Átadjuk az adott meccs adatait az Intenten keresztül
                         intent.putExtra("meccsId", meccs.getDocumentId());
                         intent.putExtra("homeTeam", meccs.getHome_team());
                         intent.putExtra("awayTeam", meccs.getAway_team());
                         intent.putExtra("homeScore", meccs.getHome_score());
                         intent.putExtra("awayScore", meccs.getAway_score());
 
-                        // Indítjuk a szerkesztő Activity-t
                         context.startActivity(intent);
                     }
                 }
@@ -195,7 +191,6 @@ public class MeccsAdapter extends RecyclerView.Adapter<MeccsAdapter.MyViewHolder
             FirebaseAuth mAuth = FirebaseAuth.getInstance();
             String userId = mAuth.getCurrentUser().getUid();
 
-            // Favorites gyűjtemény lekérdezése, amely tartalmazza az adott meccset
             CollectionReference favoritesCollectionRef = db.collection("favorites");
             Query query = favoritesCollectionRef.whereEqualTo("userId", userId)
                     .whereEqualTo("matchId", matchId);
@@ -205,7 +200,6 @@ public class MeccsAdapter extends RecyclerView.Adapter<MeccsAdapter.MyViewHolder
                         public void onComplete(@NonNull Task<QuerySnapshot> task) {
                             if (task.isSuccessful()) {
                                 for (QueryDocumentSnapshot document : task.getResult()) {
-                                    // Törlés a favorites gyűjteményből
                                     document.getReference().delete();
                                 }
                             } else {
@@ -215,37 +209,12 @@ public class MeccsAdapter extends RecyclerView.Adapter<MeccsAdapter.MyViewHolder
                         }
                     });
         }
-        /*private void addFavorites(int position) {
-            FirebaseAuth mAuth = FirebaseAuth.getInstance();
-            String userId = mAuth.getCurrentUser().getUid();
-
-            String matchId = meccsArrayList.get(position).getDocumentId();
-            Map<String, Object> favoriteMap = new HashMap<>();
-            favoriteMap.put("userId", userId);
-            favoriteMap.put("matchId", matchId);
-            db.collection("favorites")
-                    .add(favoriteMap)
-                    .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                        @Override
-                        public void onSuccess(DocumentReference documentReference) {
-                            Toast.makeText(context, "Meccs hozzáadva a kedvencekhez", Toast.LENGTH_SHORT).show();
-                        }
-                    })
-                    .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Log.e(TAG, "Hiba a meccs hozzáadásakor", e);
-                            Toast.makeText(context, "Hiba történt a meccs hozzáadásakor", Toast.LENGTH_SHORT).show();
-                        }
-                    });
-        }*/
         private void addFavorites(int position) {
             FirebaseAuth mAuth = FirebaseAuth.getInstance();
             String userId = mAuth.getCurrentUser().getUid();
 
             String matchId = meccsArrayList.get(position).getDocumentId();
 
-            // Ellenőrizzük, hogy a meccs már a kedvencek között van-e
             db.collection("favorites")
                     .whereEqualTo("userId", userId)
                     .whereEqualTo("matchId", matchId)
@@ -255,7 +224,6 @@ public class MeccsAdapter extends RecyclerView.Adapter<MeccsAdapter.MyViewHolder
                         public void onComplete(@NonNull Task<QuerySnapshot> task) {
                             if (task.isSuccessful()) {
                                 if (task.getResult().isEmpty()) {
-                                    // A meccs még nincs a kedvencek között, hozzáadjuk
                                     Map<String, Object> favoriteMap = new HashMap<>();
                                     favoriteMap.put("userId", userId);
                                     favoriteMap.put("matchId", matchId);
@@ -276,7 +244,6 @@ public class MeccsAdapter extends RecyclerView.Adapter<MeccsAdapter.MyViewHolder
                                             });
                                     favoriteIcon.setImageResource(R.drawable.ic_favorite_filled);
                                 } else {
-                                    // A meccs már a kedvencek között van, eltávolítjuk
                                     for (QueryDocumentSnapshot document : task.getResult()) {
                                         document.getReference().delete();
                                     }

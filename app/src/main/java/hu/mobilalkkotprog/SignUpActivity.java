@@ -22,7 +22,6 @@ public class SignUpActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private EditText mEmailEditText;
     private EditText mPasswordEditText;
-
     private Button loginPageButton;
 
     @Override
@@ -35,12 +34,6 @@ public class SignUpActivity extends AppCompatActivity {
             Intent intent = new Intent(SignUpActivity.this, MainActivity.class);
             startActivity(intent);
             finish();
-        } else {
-            Intent intent = new Intent(SignUpActivity.this, SignInActivity.class);
-            startActivity(intent);
-            finish();
-            // A felhasználó nincs bejelentkezve
-            // Itt megjelenítheted a bejelentkezési oldalt
         }
 
         mAuth = FirebaseAuth.getInstance();
@@ -54,6 +47,10 @@ public class SignUpActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String email = mEmailEditText.getText().toString();
                 String password = mPasswordEditText.getText().toString();
+                if (email.isEmpty() || password.isEmpty()) {
+                    Toast.makeText(SignUpActivity.this, "Kérlek, töltsd ki az összes mezőt", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 signUp(email, password);
             }
         });
@@ -74,14 +71,11 @@ public class SignUpActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            // Sign in success
                             FirebaseUser user = mAuth.getCurrentUser();
-                            // Átirányítás a bejelentkezés oldalra
                             Intent intent = new Intent(SignUpActivity.this, SignInActivity.class);
                             startActivity(intent);
                             finish();
                         } else {
-                            // If sign in fails, display a message to the user.
                             Toast.makeText(SignUpActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
                         }

@@ -1,5 +1,6 @@
 package hu.mobilalkkotprog;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Log;
@@ -10,6 +11,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import hu.mobilalkkotprog.Meccs;
 
 public class DatabaseTask extends AsyncTask<Void, Void, Void> {
+
+
 
     private String homeTeam;
     private String awayTeam;
@@ -26,24 +29,17 @@ public class DatabaseTask extends AsyncTask<Void, Void, Void> {
 
     @Override
     protected Void doInBackground(Void... voids) {
-        // Firebase Firestore hivatkozás inicializálása
         db = FirebaseFirestore.getInstance();
-
-        // Adatobjektum létrehozása
         Meccs match = new Meccs(homeTeam, awayTeam, homeGoals, awayGoals);
 
-        // Firestore gyűjtemény hivatkozás létrehozása
         CollectionReference matchesRef = db.collection("matches");
 
-        // Adatobjektum beszúrása a Firestore adatbázisba
         matchesRef.add(match)
                 .addOnSuccessListener(documentReference -> {
-                    // Sikeres beszúrás esetén
                     Log.d("DatabaseTask", "Mérkőzés sikeresen hozzáadva");
 
                 })
                 .addOnFailureListener(e -> {
-                    // Hiba esetén
                     Log.e("DatabaseTask", "Hiba történt a mérkőzés hozzáadása során", e);
                 });
 
@@ -53,7 +49,5 @@ public class DatabaseTask extends AsyncTask<Void, Void, Void> {
     @Override
     protected void onPostExecute(Void aVoid) {
         super.onPostExecute(aVoid);
-        // Itt kezelheted az adatbázisművelet utáni teendőket
-        // Például frissítheted a felhasználói felületet vagy megjeleníthetsz egy Toast üzenetet
     }
 }

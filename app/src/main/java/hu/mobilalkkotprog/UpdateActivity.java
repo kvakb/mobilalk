@@ -44,7 +44,6 @@ public class UpdateActivity extends AppCompatActivity {
         editAwayScore = findViewById(R.id.editAwayScore);
         btnSave = findViewById(R.id.btnSave);
 
-        // Meccs adatainak beállítása az űrlap elemein
         editHomeTeam.setText(intents.getStringExtra("homeTeam"));
         editAwayTeam.setText(intents.getStringExtra("awayTeam"));
         editHomeScore.setText(intents.getStringExtra("homeScore"));
@@ -84,13 +83,11 @@ public class UpdateActivity extends AppCompatActivity {
     }
 
     private void updateData() {
-        // Űrlapról lekérdezett adatok
         String homeTeam = editHomeTeam.getText().toString();
         String awayTeam = editAwayTeam.getText().toString();
         String homeScore = editHomeScore.getText().toString();
         String awayScore = editAwayScore.getText().toString();
 
-        // Firestore adatbázis frissítése
 
         DocumentReference docRef = db.collection("matches").document(modositandoID);
         docRef.update("home_team", homeTeam,
